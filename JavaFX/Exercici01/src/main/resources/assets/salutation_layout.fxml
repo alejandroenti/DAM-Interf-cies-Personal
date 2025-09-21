@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ControllerSalutation">
+   <children>
+      <Text fx:id="textMessage" layoutX="16.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="673.8080062866211" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Button fx:id="buttonPreviousView" layoutX="211.0" layoutY="301.0" mnemonicParsing="false" onAction="#previousView" style="-fx-background-color: red;" text="Anterior Vista">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
