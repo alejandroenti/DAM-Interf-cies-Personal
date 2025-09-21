@@ -24,8 +24,8 @@ if (Test-Path $mpFile) {
 # --- Fallback: scan ~/.m2 for OpenJFX jars (Windows classifiers) ---
 if ([string]::IsNullOrWhiteSpace($modulePath)) {
   # Note: adjust patterns if you use aarch64 or different version/classifier
-  $home = $env:USERPROFILE
-  $fxRoot = Join-Path $home ".m2\repository\org\openjfx"
+  $userHome  = $env:USERPROFILE
+  $fxRoot = Join-Path $userHome ".m2\repository\org\openjfx"
   if (Test-Path $fxRoot) {
     $jars = Get-ChildItem -Path $fxRoot -Recurse -Include `
       "javafx-base*-win*.jar","javafx-graphics*-win*.jar","javafx-controls*-win*.jar","javafx-fxml*-win*.jar" `

@@ -6,18 +6,16 @@ import javafx.scene.text.Text;
 import javafx.event.ActionEvent;
 
 public class Controller {
+    @FXML
+    private Text textNumbers;
+
+    private double result = 0;
+    private String currentNumber = "";
+    private char currentOperation = '+';
 
     @FXML
-    private Button buttonAdd;
-
-    @FXML
-    private Text textCounter;
-
-    private int counter = 0;
-
-    @FXML
-    private void actionAdd(ActionEvent event) {
-        counter++;
-        textCounter.setText(String.valueOf(counter));
+    private void addNumber(ActionEvent event) {
+        currentNumber = ((Button) event.getSource()).getText();
+        textNumbers.setText(String.valueOf(currentNumber));
     }
 }
