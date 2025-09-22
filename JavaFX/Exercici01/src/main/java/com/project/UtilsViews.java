@@ -73,13 +73,8 @@ public class UtilsViews {
                 n.setVisible(true);
                 n.setManaged(true);
 
-                Object controller = getController(viewId);
-                if (controller instanceof ControllerForm) {
-                    ((ControllerForm) controller).initialize();
-                }
-                if (controller instanceof ControllerSalutation) {
-                    ((ControllerSalutation) controller).initialize();
-                }
+                ((Controller)getController(viewId)).initialize();;
+                
             } else {
                 n.setVisible(false);
                 n.setManaged(false);

@@ -18,12 +18,12 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <TextField fx:id="textFieldName" layoutX="157.0" layoutY="90.0" onAction="#updateName" prefHeight="40.0" prefWidth="444.0">
+      <TextField fx:id="textFieldName" layoutX="157.0" layoutY="90.0" onKeyTyped="#updateName" prefHeight="40.0" prefWidth="444.0">
          <font>
             <Font size="36.0" />
          </font>
       </TextField>
-      <TextField fx:id="textFieldAge" layoutX="157.0" layoutY="193.0" onAction="#updateAge" prefHeight="40.0" prefWidth="444.0">
+      <TextField fx:id="textFieldAge" layoutX="157.0" layoutY="193.0" onKeyTyped="#updateAge" prefHeight="40.0" prefWidth="444.0">
          <font>
             <Font size="36.0" />
          </font>

@@ -1,22 +1,20 @@
 package com.project;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
-
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
-import javafx.event.ActionEvent;
-
-public class ControllerForm {
+public class ControllerForm extends Controller {
     @FXML
     private TextField textFieldName;
     @FXML
     private TextField textFieldAge;
     @FXML
     private Button buttonNextView;
-
-    @FXML
+    
+    @Override
     public void initialize() {
         textFieldName.setText("");
         textFieldAge.setText("");
@@ -25,13 +23,13 @@ public class ControllerForm {
     }
 
     @FXML
-    private void updateName(ActionEvent event) {
+    private void updateName(KeyEvent event) {
         Main.name = textFieldName.getText();
         checkDisableButton();
     }
 
     @FXML
-    private void updateAge(ActionEvent event) {
+    private void updateAge(KeyEvent event) {
         try {
             int age = Integer.parseInt(textFieldAge.getText());
 

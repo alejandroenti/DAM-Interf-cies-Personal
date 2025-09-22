@@ -1,0 +1,6 @@
+package com.project;
+
+public abstract class Controller {
+
+    public abstract void initialize();
+}

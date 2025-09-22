@@ -1,25 +1,17 @@
 package com.project;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
-import javafx.scene.control.TextField;
-
-import com.project.Main;
-import com.project.UtilsViews;
-
-import javafx.event.ActionEvent;
-
-public class ControllerSalutation {
+public class ControllerSalutation extends Controller {
     @FXML
     private Text textMessage;
     @FXML
     private Button buttonPreviousView;
 
-    @FXML
     public void initialize() {
-        System.out.println(Main.name + " - " + Main.age);
         textMessage.setText(String.format("Hola %s, tens %d anys!", Main.name, Main.age));
     }
 
