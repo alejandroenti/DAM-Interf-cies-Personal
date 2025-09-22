@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.Controller">
+   <children>
+      <Pane layoutY="-2.0" prefHeight="64.0" prefWidth="600.0" style="-fx-background-color: #37D8F0;">
+         <children>
+            <Text layoutX="228.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nintendo DB">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <ChoiceBox layoutX="14.0" layoutY="70.0" prefHeight="26.0" prefWidth="168.0" />
+      <VBox layoutX="14.0" layoutY="109.0" prefHeight="281.0" prefWidth="168.0" />
+      <Pane layoutX="200.0" layoutY="70.0" prefHeight="320.0" prefWidth="391.0" />
+   </children>
+</AnchorPane>
