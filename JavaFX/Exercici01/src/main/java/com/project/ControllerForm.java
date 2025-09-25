@@ -13,7 +13,7 @@ public class ControllerForm extends Controller {
     private TextField textFieldAge;
     @FXML
     private Button buttonNextView;
-    
+
     @Override
     public void initialize() {
         textFieldName.setText("");
@@ -41,6 +41,8 @@ public class ControllerForm extends Controller {
             }
         } catch (NumberFormatException ex) {
             textFieldAge.setText("");
+            Main.age = 0;
+            checkDisableButton();
         }
     }
 
