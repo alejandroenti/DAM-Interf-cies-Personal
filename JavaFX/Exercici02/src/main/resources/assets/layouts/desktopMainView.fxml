@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ControllerDesktop">
+   <children>
+      <Pane layoutY="-2.0" prefHeight="64.0" prefWidth="1000.0" style="-fx-background-color: #37D8F0;">
+         <children>
+            <Text layoutX="428.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nintendo DB">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <ChoiceBox fx:id="desktopChoiceBox" layoutX="14.0" layoutY="70.0" prefHeight="26.0" prefWidth="350.0" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="108.0" prefHeight="480.0" prefWidth="350.0">
+         <content>
+            <VBox fx:id="desktopElementsList" prefHeight="476.0" prefWidth="332.0" />
+         </content>
+      </ScrollPane>
+      <ImageView fx:id="itemImage" fitHeight="209.0" fitWidth="350.0" layoutX="536.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="itemDescription" alignment="CENTER" layoutX="375.0" layoutY="365.0" prefHeight="223.0" prefWidth="611.0" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="itemTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="381.0" layoutY="308.0" prefHeight="48.0" prefWidth="583.0" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

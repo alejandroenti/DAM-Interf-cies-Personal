@@ -60,12 +60,6 @@
         "game": "Pokémon"
     },
     {
-        "name": "Pikachu",
-        "image": "character_pikachu.png",
-        "color": "brown",
-        "game": "Metroid"
-    },
-    {
         "name": "Kirby",
         "image": "character_kirby.png",
         "color": "pink",
