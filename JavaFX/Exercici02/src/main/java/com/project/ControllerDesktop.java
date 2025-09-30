@@ -63,6 +63,9 @@ public class ControllerDesktop extends Controller {
             jsonGames = new JSONArray(content);
 
             generateChoices();
+
+            if (Main.currentObject != -1)
+                showData();
         } catch (Exception e) {
             e.printStackTrace();
         }
