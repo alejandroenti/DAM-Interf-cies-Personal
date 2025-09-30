@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -22,7 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class ControllerDesktop implements Initializable {
+public class ControllerDesktop extends Controller {
 
     @FXML
     private VBox desktopElementsList = new VBox();
@@ -41,9 +40,9 @@ public class ControllerDesktop implements Initializable {
 
     private URL listResource;
 
-    // Called when the FXML file is loaded
-    @FXML
-    public void initialize(URL url, ResourceBundle rb) {
+    @Override
+    public void initialize() {
+        
         try {
             // Obtenir el recurs del template .fxml
             listResource = this.getClass().getResource("/assets/layouts/desktopListItem.fxml");

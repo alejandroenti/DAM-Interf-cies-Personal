@@ -72,6 +72,7 @@ public class UtilsViews {
             if (n.getId().equals(viewId)) {
                 n.setVisible(true);
                 n.setManaged(true);
+                ((Controller)getController(viewId)).initialize();
             } else {
                 n.setVisible(false);
                 n.setManaged(false);
