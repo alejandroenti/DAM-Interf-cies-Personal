@@ -44,14 +44,17 @@ public class ControllerMobileItems extends Controller {
                 resourceInfo = "/data/consoles.json";
                 windowTitle.setText("Consoles");
                 windowBackground.setStyle("-fx-background-color: #dd1212ff;");
+                windowTitle.setStyle("-fx-text-fill: #ffffff");
             } else if (Main.currentTheme == "Videogames") {
                 resourceInfo = "/data/games.json";
                 windowTitle.setText("Videogames");
                 windowBackground.setStyle("-fx-background-color: #4812ddff;");
+                windowTitle.setStyle("-fx-text-fill: #ffffff");
             } else if (Main.currentTheme == "Characters") {
                 resourceInfo = "/data/characters.json";
                 windowTitle.setText("Characters");
                 windowBackground.setStyle("-fx-background-color: #12dd45ff;");
+                windowTitle.setStyle("-fx-text-fill: #000000");
             }
 
             URL urlImage = getClass().getResource("/assets/images/arrow-back.png");
@@ -99,8 +102,6 @@ public class ControllerMobileItems extends Controller {
 
             // Afegir el nou element a 'yPane'
             mobileElementList.getChildren().add(itemTemplate);
-
-            System.out.println(mobileElementList.getChildren());
         }
     }
 
@@ -110,7 +111,6 @@ public class ControllerMobileItems extends Controller {
     }
 
     public void passNextView() {
-        System.out.println("Clicked");
-        // UtilsViews.setView("MobileItemsView");
+        UtilsViews.setView("MobileItem");
     }
 }

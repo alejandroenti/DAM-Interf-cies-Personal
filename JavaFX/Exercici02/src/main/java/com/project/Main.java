@@ -27,6 +27,7 @@ public class Main extends Application {
         UtilsViews.addView(getClass(), "Desktop", "/assets/layouts/desktopMainView.fxml");
         UtilsViews.addView(getClass(), "MobileMain", "/assets/layouts/mobileMainView.fxml");
         UtilsViews.addView(getClass(), "MobileItems", "/assets/layouts/mobileItemsView.fxml");
+        UtilsViews.addView(getClass(), "MobileItem", "/assets/layouts/mobileItemView.fxml");
 
         Scene scene = new Scene(UtilsViews.parentContainer);
 
@@ -35,7 +36,7 @@ public class Main extends Application {
             public void changed(ObservableValue<? extends Number> observable, Number oldWidth, Number newWidth) {
                 _setLayout(newWidth.intValue());
             }
-            
+
         });
 
         stage.setScene(scene);

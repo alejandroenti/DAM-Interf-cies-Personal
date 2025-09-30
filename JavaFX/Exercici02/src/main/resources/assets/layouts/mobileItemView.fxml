@@ -18,7 +18,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="50.0" prefWidth="70.0">
                      <children>
-                        <ImageView fx:id="imgArrowBack" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#toViewMain" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
+                        <ImageView fx:id="imgArrowBack" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#toViewItems" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

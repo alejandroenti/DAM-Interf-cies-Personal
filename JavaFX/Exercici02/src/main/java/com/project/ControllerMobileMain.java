@@ -36,7 +36,6 @@ public class ControllerMobileMain extends Controller {
     }
 
     public void passNextView() {
-        // System.out.println("Clicked");
         UtilsViews.setView("MobileItems");
     }
 }

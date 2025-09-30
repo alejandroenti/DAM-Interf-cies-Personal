@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ControllerMobileMain">
+<AnchorPane prefHeight="600.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ControllerMobileMain">
    <children>
       <Pane layoutY="-2.0" prefHeight="64.0" prefWidth="471.0" style="-fx-background-color: #37D8F0;">
          <children>
@@ -17,9 +17,9 @@
             </Text>
          </children>
       </Pane>
-      <AnchorPane layoutX="17.0" layoutY="93.0" maxWidth="438.0" prefHeight="117.0" prefWidth="438.0" style="-fx-border-color: #B5B5B5;">
+      <AnchorPane layoutX="17.0" layoutY="93.0" maxWidth="438.0" prefHeight="117.0" prefWidth="438.0" style="-fx-border-color: #dd1212ff;">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="-2.0" onMouseClicked="#onMouseClickedConsoles" prefHeight="117.0" prefWidth="411.0" text="Consoles" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="-2.0" onMouseClicked="#onMouseClickedConsoles" prefHeight="117.0" prefWidth="438.0" style="-fx-background-color: #dd1212ff;" text="Consoles" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
@@ -28,7 +28,7 @@
       </AnchorPane>
       <AnchorPane layoutX="17.0" layoutY="223.0" maxWidth="400.0" prefHeight="115.0" prefWidth="438.0" style="-fx-border-color: #B5B5B5;">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="-2.0" onMouseClicked="#onMouseClickedVideogames" prefHeight="117.0" prefWidth="438.0" text="Videogames" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="-2.0" onMouseClicked="#onMouseClickedVideogames" prefHeight="117.0" prefWidth="438.0" style="-fx-background-color: #4812ddff;" text="Videogames" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
@@ -37,7 +37,7 @@
       </AnchorPane>
       <AnchorPane layoutX="15.0" layoutY="358.0" maxWidth="400.0" prefHeight="115.0" prefWidth="438.0" style="-fx-border-color: #B5B5B5;">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="-2.0" onMouseClicked="#onMouseClickedCharacters" prefHeight="117.0" prefWidth="438.0" text="Characters" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="-2.0" onMouseClicked="#onMouseClickedCharacters" prefHeight="117.0" prefWidth="438.0" style="-fx-background-color: #12dd45ff;" text="Characters" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
