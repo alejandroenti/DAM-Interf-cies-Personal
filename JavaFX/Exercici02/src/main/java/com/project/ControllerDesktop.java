@@ -147,7 +147,7 @@ public class ControllerDesktop implements Initializable {
 
         String description = "La consola " + element.getString("name") + " va sortir al mercat el "
                 + element.getString("date") + ". Compta amb un processador " + element.getString("name")
-                + " i va té versió de color: " + element.getString("color") + ". Va vendre un total de "
+                + ". Va vendre un total de "
                 + element.getInt("units_sold") + " unitats.";
 
         return description;
