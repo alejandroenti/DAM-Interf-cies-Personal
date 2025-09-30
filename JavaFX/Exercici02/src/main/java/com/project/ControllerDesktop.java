@@ -66,6 +66,10 @@ public class ControllerDesktop extends Controller {
 
             if (Main.currentObject != -1)
                 showData();
+
+            if (Main.currentObjects.isEmpty()) {
+                desktopElementsList.getChildren().clear();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

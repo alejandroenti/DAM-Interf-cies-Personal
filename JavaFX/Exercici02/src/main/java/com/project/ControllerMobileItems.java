@@ -107,6 +107,7 @@ public class ControllerMobileItems extends Controller {
 
     @FXML
     private void toViewMain() {
+        Main.currentObjects.clear();
         UtilsViews.setView("MobileMain");
     }
 

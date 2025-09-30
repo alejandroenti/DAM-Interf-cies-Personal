@@ -108,6 +108,7 @@ public class ControllerMobileItem extends Controller {
 
     @FXML
     private void toViewItems() {
+        Main.currentObject = -1;
         UtilsViews.setView("MobileItems");
     }
 }

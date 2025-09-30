@@ -57,8 +57,13 @@ public class Main extends Application {
     }
 
     private void _setLayout(int width) {
-        if (width < 450) {
-            UtilsViews.setView("MobileMain");
+        if (width < 750) {
+            if (currentObject != -1)
+                UtilsViews.setView("MobileItem");
+            else if (!currentObjects.isEmpty())
+                UtilsViews.setView("MobileItems");
+            else
+                UtilsViews.setView("MobileMain");
         } else {
             UtilsViews.setView("Desktop");
         }
