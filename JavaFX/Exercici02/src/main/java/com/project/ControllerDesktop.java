@@ -70,7 +70,8 @@ public class ControllerDesktop extends Controller {
     }
 
     private void generateChoices() {
-        desktopChoiceBox.getSelectionModel().clearSelection();
+
+        desktopChoiceBox.getItems().clear();
         desktopChoiceBox.getItems().addAll(themes);
 
         desktopChoiceBox.setOnAction(event -> {
