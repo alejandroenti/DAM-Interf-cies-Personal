@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -18,10 +17,32 @@
             </Text>
          </children>
       </Pane>
-      <ScrollPane hbarPolicy="NEVER" layoutX="45.0" layoutY="75.0" prefHeight="480.0" prefWidth="373.0">
-         <content>
-            <VBox fx:id="mobileElementsList" prefHeight="479.0" prefWidth="351.0" />
-         </content>
-      </ScrollPane>
+      <AnchorPane layoutX="17.0" layoutY="93.0" maxWidth="438.0" prefHeight="117.0" prefWidth="438.0" style="-fx-border-color: #B5B5B5;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="-2.0" onMouseClicked="#onMouseClickedConsoles" prefHeight="117.0" prefWidth="411.0" text="Consoles" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="17.0" layoutY="223.0" maxWidth="400.0" prefHeight="115.0" prefWidth="438.0" style="-fx-border-color: #B5B5B5;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="-2.0" onMouseClicked="#onMouseClickedVideogames" prefHeight="117.0" prefWidth="438.0" text="Videogames" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="15.0" layoutY="358.0" maxWidth="400.0" prefHeight="115.0" prefWidth="438.0" style="-fx-border-color: #B5B5B5;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="-2.0" onMouseClicked="#onMouseClickedCharacters" prefHeight="117.0" prefWidth="438.0" text="Characters" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

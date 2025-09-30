@@ -26,6 +26,7 @@ public class Main extends Application {
         // Carrega la vista inicial des del fitxer FXML
         UtilsViews.addView(getClass(), "Desktop", "/assets/layouts/desktopMainView.fxml");
         UtilsViews.addView(getClass(), "MobileMain", "/assets/layouts/mobileMainView.fxml");
+        UtilsViews.addView(getClass(), "MobileItems", "/assets/layouts/mobileItemsView.fxml");
 
         Scene scene = new Scene(UtilsViews.parentContainer);
 
