@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -42,7 +41,7 @@ public class ControllerDesktop extends Controller {
 
     @Override
     public void initialize() {
-        
+
         try {
             // Obtenir el recurs del template .fxml
             listResource = this.getClass().getResource("/assets/layouts/desktopListItem.fxml");

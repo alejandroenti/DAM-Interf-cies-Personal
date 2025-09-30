@@ -17,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class ControllerMobileItems extends Controller {
 
@@ -29,7 +28,7 @@ public class ControllerMobileItems extends Controller {
     private Pane windowBackground;
     @FXML
     private ImageView imgArrowBack;
-    
+
     private JSONArray jsonInfo;
 
     private URL listResource;
@@ -38,19 +37,18 @@ public class ControllerMobileItems extends Controller {
     @Override
     public void initialize() {
         try {
-            if (Main.currentTheme == null) return;
+            if (Main.currentTheme == null)
+                return;
 
             if (Main.currentTheme == "Consoles") {
                 resourceInfo = "/data/consoles.json";
                 windowTitle.setText("Consoles");
                 windowBackground.setStyle("-fx-background-color: #dd1212ff;");
-            }
-            else if (Main.currentTheme == "Videogames") {
+            } else if (Main.currentTheme == "Videogames") {
                 resourceInfo = "/data/games.json";
                 windowTitle.setText("Videogames");
                 windowBackground.setStyle("-fx-background-color: #4812ddff;");
-            }
-            else if (Main.currentTheme == "Characters") {
+            } else if (Main.currentTheme == "Characters") {
                 resourceInfo = "/data/characters.json";
                 windowTitle.setText("Characters");
                 windowBackground.setStyle("-fx-background-color: #12dd45ff;");
@@ -113,6 +111,6 @@ public class ControllerMobileItems extends Controller {
 
     public void passNextView() {
         System.out.println("Clicked");
-        //UtilsViews.setView("MobileItemsView");
+        // UtilsViews.setView("MobileItemsView");
     }
 }
