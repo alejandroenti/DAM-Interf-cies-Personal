@@ -36,7 +36,7 @@
                <children>
                   <TextField fx:id="textPrompt" onAction="#callStream" prefHeight="142.0" prefWidth="565.0" promptText="Message..." style="-fx-background-radius: 32; -fx-border-radius: 32;">
                      <padding>
-                        <Insets bottom="8.0" left="64.0" right="48.0" top="8.0" />
+                        <Insets bottom="8.0" left="64.0" right="64.0" top="8.0" />
                      </padding>
                      <cursor>
                         <Cursor fx:constant="TEXT" />
@@ -53,7 +53,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Rectangle fx:id="btnStopResponse" arcHeight="5.0" fill="#616161" height="24.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="24.0">
+                  <Rectangle fx:id="btnStopResponse" arcHeight="5.0" height="24.0" onMouseClicked="#cancelCall" stroke="BLACK" strokeType="INSIDE" visible="false" width="24.0">
                      <HBox.margin>
                         <Insets left="440.0" top="6.0" />
                      </HBox.margin>

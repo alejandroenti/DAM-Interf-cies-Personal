@@ -1,6 +1,7 @@
 package com.project;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -22,13 +23,14 @@ import org.json.JSONObject;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
@@ -46,6 +48,8 @@ public class Controller implements Initializable {
     private TextField textPrompt;
     @FXML
     private VBox responseBox = new VBox(10);
+    @FXML 
+    private ScrollPane scrollPane;
 
     Label textResponse = new Label();
 
@@ -77,20 +81,28 @@ public class Controller implements Initializable {
         //setButtonsRunning();
         isCancelled.set(false);
 
-        textResponse = new Label();
-        textResponse.setText(prompt);
-        textResponse.setStyle("-fx-alignment: CENTER");
-        textResponse.setStyle("-fx-wrap-text: True");
-        textResponse.setStyle("-fx-padding: 8");
-        textResponse.setStyle("-fx-background-radius: 16");
-        textResponse.setStyle("-fx-background-color: #5ED6BA");
-        HBox hbox = new HBox(textResponse);
-        hbox.setAlignment(Pos.CENTER_RIGHT);
-        responseBox.getChildren().add(hbox);
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/assets/textScreenLayout.fxml"));
+            Parent itemTemplate = loader.load();
+            ControllerScreen itemController = loader.getController();
+            itemController.setText(prompt);
+            itemController.setIsQuestion(true);
+            responseBox.getChildren().add(itemTemplate);
+        } catch (IOException ex) {
+        }
 
-        textResponse = new Label();
-        responseBox.getChildren().add(textResponse);
-        responseBox.autosize();
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/assets/textScreenLayout.fxml"));
+            Parent itemTemplate = loader.load();
+            ControllerScreen itemController = loader.getController();
+            itemController.setText("");
+            itemController.setIsQuestion(false);
+            responseBox.getChildren().add(itemTemplate);
+            textResponse = itemController.getText();
+        } catch (IOException ex) {
+        }
+
+        btnStopResponse.setVisible(true);
         
         ensureModelLoaded(TEXT_MODEL).whenComplete((v, err) -> {
             if (err != null) {
@@ -99,6 +111,11 @@ public class Controller implements Initializable {
             }
             executeTextRequest(TEXT_MODEL, prompt, true);
         });
+    }
+
+    @FXML
+    private void cancelCall() {
+        btnStopResponse.setVisible(false);
     }
 
     // --- Request helpers ---
@@ -134,11 +151,12 @@ public class Controller implements Initializable {
                 });
 
         } else {
-            //Platform.runLater(() -> textInfo.setText("Wait complete ..."));
+            Platform.runLater(() -> textResponse.setText("Wait complete ..."));
 
             completeRequest = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     String responseText = safeExtractTextResponse(response.body());
+                    Platform.runLater(() -> {scrollPane.setVvalue(1.0);});
                     //Platform.runLater(() -> { textInfo.setText(responseText); setButtonsIdle(); });
                     return response;
                 })
@@ -163,10 +181,10 @@ public class Controller implements Initializable {
                 if (chunk.isEmpty()) continue;
 
                 if (isFirst) {
-                    Platform.runLater(() -> textResponse.setText(chunk));
+                    Platform.runLater(() -> {textResponse.setText(chunk); scrollPane.setVvalue(1.0);});
                     isFirst = false;
                 } else {
-                    Platform.runLater(() -> textResponse.setText(textResponse.getText() + chunk));
+                    Platform.runLater(() -> {textResponse.setText(textResponse.getText() + chunk); scrollPane.setVvalue(1.0);});
                 }
             }
         } catch (Exception e) {
@@ -174,7 +192,7 @@ public class Controller implements Initializable {
             Platform.runLater(() -> { textResponse.setText("Error during streaming."); }); //; setButtonsIdle(); });
         } finally {
             try { if (currentInputStream != null) currentInputStream.close(); } catch (Exception ignore) {}
-            responseBox.autosize();
+            btnStopResponse.setVisible(false);
             //Platform.runLater(this::setButtonsIdle);
         }
     }
