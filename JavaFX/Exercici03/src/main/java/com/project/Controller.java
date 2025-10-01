@@ -116,6 +116,13 @@ public class Controller implements Initializable {
     @FXML
     private void cancelCall() {
         btnStopResponse.setVisible(false);
+
+        isCancelled.set(true);
+        cancelStreamRequest();
+        //cancelCompleteRequest();
+        Platform.runLater(() -> {
+            textResponse.setText(textResponse.getText() + "\nRequest cancelled.");
+        });
     }
 
     // --- Request helpers ---
@@ -209,6 +216,34 @@ public class Controller implements Initializable {
             if (o.has("error"))   return "Error: " + o.optString("error");
         } catch (Exception ignore) {}
         return bodyStr != null && !bodyStr.isBlank() ? bodyStr : "(empty)";
+    }
+
+    private String tryParseAnyMessage(String bodyStr) {
+        try {
+            JSONObject o = new JSONObject(bodyStr);
+            if (o.has("response")) return o.optString("response", "");
+            if (o.has("message"))  return o.optString("message", "");
+            if (o.has("error"))    return "Error: " + o.optString("error", "");
+        } catch (Exception ignore) {}
+        return null;
+    }
+
+    private void cancelStreamRequest() {
+        if (streamRequest != null && !streamRequest.isDone()) {
+            try {
+                if (currentInputStream != null) {
+                    System.out.println("Cancelling InputStream");
+                    currentInputStream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("Cancelling StreamRequest");
+            if (streamReadingTask != null) {
+                streamReadingTask.cancel(true);
+            }
+            streamRequest.cancel(true);
+        }
     }
 
     // Ensure given model is in memory; preload if needed
