@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="460.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.Controller">
+<AnchorPane prefHeight="460.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.Controller">
    <children>
       <VBox prefHeight="448.0" prefWidth="600.0">
          <children>
@@ -34,7 +34,7 @@
             </ScrollPane>
             <HBox prefHeight="57.0" prefWidth="600.0">
                <children>
-                  <TextField fx:id="textPrompt" onAction="#callStream" prefHeight="142.0" prefWidth="565.0" promptText="Message..." style="-fx-background-radius: 32; -fx-border-radius: 32;">
+                  <TextField fx:id="textPrompt" onAction="#processCall" prefHeight="142.0" prefWidth="565.0" promptText="Message..." style="-fx-background-radius: 32; -fx-border-radius: 32;">
                      <padding>
                         <Insets bottom="8.0" left="64.0" right="64.0" top="8.0" />
                      </padding>
@@ -45,7 +45,7 @@
                         <Insets bottom="8.0" />
                      </HBox.margin>
                   </TextField>
-                  <ImageView fx:id="btnAddImage" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnAddImage" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#addImage" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="-550.0" top="6.0" />
                      </HBox.margin>
@@ -61,7 +61,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Rectangle>
-                  <ImageView fx:id="btnSubmitPrompt" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#callStream" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnSubmitPrompt" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#processCall" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

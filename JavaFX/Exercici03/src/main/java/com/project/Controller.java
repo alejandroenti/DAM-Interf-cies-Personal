@@ -1,6 +1,7 @@
 package com.project;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,6 +12,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Base64;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -33,6 +36,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 
 public class Controller implements Initializable {
 
@@ -51,7 +55,8 @@ public class Controller implements Initializable {
     @FXML 
     private ScrollPane scrollPane;
 
-    Label textResponse = new Label();
+    private Label textResponse = new Label();
+    private String base64Image = ""; 
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private CompletableFuture<HttpResponse<InputStream>> streamRequest;
@@ -75,42 +80,15 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private void callStream() {
-        String prompt = textPrompt.getText();
-        textPrompt.setText("");
-        //setButtonsRunning();
-        isCancelled.set(false);
+    private void processCall() {
 
-        try {
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/assets/textScreenLayout.fxml"));
-            Parent itemTemplate = loader.load();
-            ControllerScreen itemController = loader.getController();
-            itemController.setText(prompt);
-            itemController.setIsQuestion(true);
-            responseBox.getChildren().add(itemTemplate);
-        } catch (IOException ex) {
-        }
+        if (textPrompt.getText().isEmpty()) return;
 
-        try {
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/assets/textScreenLayout.fxml"));
-            Parent itemTemplate = loader.load();
-            ControllerScreen itemController = loader.getController();
-            itemController.setText("");
-            itemController.setIsQuestion(false);
-            responseBox.getChildren().add(itemTemplate);
-            textResponse = itemController.getText();
-        } catch (IOException ex) {
-        }
-
-        btnStopResponse.setVisible(true);
+        if (base64Image.isBlank())
+            callStream();
+        else
+            callPicture();
         
-        ensureModelLoaded(TEXT_MODEL).whenComplete((v, err) -> {
-            if (err != null) {
-                Platform.runLater(() -> { textResponse.setText("Error loading model."); });// setButtonsIdle(); });
-                return;
-            }
-            executeTextRequest(TEXT_MODEL, prompt, true);
-        });
     }
 
     @FXML
@@ -122,6 +100,76 @@ public class Controller implements Initializable {
         //cancelCompleteRequest();
         Platform.runLater(() -> {
             textResponse.setText(textResponse.getText() + "\nRequest cancelled.");
+        });
+    }
+
+    @FXML
+    private void addImage() {
+        // Choose image file
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Choose an image");
+        fc.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.webp", "*.bmp", "*.gif")
+        );
+
+        // set default dir to current working directory
+        File initialDir = new File(System.getProperty("user.dir"));
+        if (initialDir.exists() && initialDir.isDirectory()) {
+            fc.setInitialDirectory(initialDir);
+        }
+
+        File file = fc.showOpenDialog(responseBox.getScene().getWindow());
+        if (file == null) {
+            Platform.runLater(() -> { System.out.println("No file selected."); base64Image = ""; });
+            return;
+        }
+
+
+        // Read file -> base64
+        try {
+            byte[] bytes = Files.readAllBytes(file.toPath());
+            base64Image = Base64.getEncoder().encodeToString(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Platform.runLater(() -> { System.out.println("Error reading image."); base64Image = ""; });
+            return;
+        }
+    }
+
+    private void callStream() {
+        String prompt = textPrompt.getText();
+        textPrompt.setText("");
+        isCancelled.set(false);
+
+        loadPeopleText(prompt);
+        loadAIText();        
+        btnStopResponse.setVisible(true);
+        
+        ensureModelLoaded(TEXT_MODEL).whenComplete((v, err) -> {
+            if (err != null) {
+                Platform.runLater(() -> { textResponse.setText("Error loading model."); });// setButtonsIdle(); });
+                return;
+            }
+            executeTextRequest(TEXT_MODEL, prompt, true);
+        });
+    }
+
+    private void callPicture() {
+        String prompt = textPrompt.getText();
+        textPrompt.setText("");
+        isCancelled.set(false);
+
+        loadPeopleText(prompt);
+        loadAIText();        
+        btnStopResponse.setVisible(true);
+        
+        ensureModelLoaded(VISION_MODEL).whenComplete((v, err) -> {
+            if (err != null) {
+                Platform.runLater(() -> { textResponse.setText("Error loading model."); });
+                return;
+            }
+            executeImageRequest(VISION_MODEL, prompt, base64Image);
+            base64Image = "";
         });
     }
 
@@ -164,15 +212,57 @@ public class Controller implements Initializable {
                 .thenApply(response -> {
                     String responseText = safeExtractTextResponse(response.body());
                     Platform.runLater(() -> {scrollPane.setVvalue(1.0);});
-                    //Platform.runLater(() -> { textInfo.setText(responseText); setButtonsIdle(); });
                     return response;
                 })
                 .exceptionally(e -> {
                     if (!isCancelled.get()) e.printStackTrace();
-                    //Platform.runLater(this::setButtonsIdle);
                     return null;
                 });
         }
+    }
+
+    // Image + prompt (non-stream) using vision model
+    private void executeImageRequest(String model, String prompt, String base64Image) {
+        Platform.runLater(() -> textResponse.setText("Analyzing picture ..."));
+
+        JSONObject body = new JSONObject()
+            .put("model", model)
+            .put("prompt", prompt)
+            .put("images", new JSONArray().put(base64Image))
+            .put("stream", false)
+            .put("keep_alive", "10m")
+            .put("options", new JSONObject()
+                .put("num_ctx", 2048)     // lower context to reduce memory
+                .put("num_predict", 256)  // shorter output to avoid OOM
+            );
+
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:11434/api/generate"))
+            .header("Content-Type", "application/json")
+            .POST(BodyPublishers.ofString(body.toString()))
+            .build();
+
+        completeRequest = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+            .thenApply(resp -> {
+                int code = resp.statusCode();
+                String bodyStr = resp.body();
+
+                String msg = tryParseAnyMessage(bodyStr);
+                if (msg == null || msg.isBlank()) {
+                    msg = (code >= 200 && code < 300) ? "(empty response)" : "HTTP " + code + ": " + bodyStr;
+                }
+
+                final String toShow = msg;
+                Platform.runLater(() -> { textResponse.setText(toShow); });
+                Platform.runLater(() -> {scrollPane.setVvalue(1.0);});
+                btnStopResponse.setVisible(false);
+                return resp;
+            })
+            .exceptionally(e -> {
+                if (!isCancelled.get()) e.printStackTrace();
+                Platform.runLater(() -> { textResponse.setText("Request failed."); });
+                return null;
+            });
     }
 
     // Stream reader for text responses
@@ -288,5 +378,33 @@ public class Controller implements Initializable {
                 return httpClient.sendAsync(preloadReq, HttpResponse.BodyHandlers.ofString())
                         .thenAccept(r -> { /* warmed */ });
             });
+    }
+
+    private void loadPeopleText(String prompt) {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/assets/textScreenLayout.fxml"));
+            Parent itemTemplate = loader.load();
+            ControllerScreen itemController = loader.getController();
+            itemController.setText(prompt);
+            itemController.setIsQuestion(true);
+            responseBox.getChildren().add(itemTemplate);
+        } catch (IOException ex) {
+        }
+    }
+
+    private void loadAIText() {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/assets/textScreenLayout.fxml"));
+            Parent itemTemplate = loader.load();
+            ControllerScreen itemController = loader.getController();
+            itemController.setText("");
+            itemController.setIsQuestion(false);
+            responseBox.getChildren().add(itemTemplate);
+            URL urlImage = getClass().getResource("/images/logo.png");
+            Image image = new Image(urlImage.toExternalForm());
+            itemController.setImage(image);
+            textResponse = itemController.getText();
+        } catch (IOException ex) {
+        }
     }
 }
