@@ -121,6 +121,8 @@ public class ControllerDesktop extends Controller {
         desktopElementsList.getChildren().clear();
         Main.currentObjects.clear();
 
+        Main.currentObject = -1;
+
         listResource = this.getClass().getResource("/assets/layouts/desktopListItem.fxml");
 
         // Generar la nova llista a partir de 'jsonInfo'
